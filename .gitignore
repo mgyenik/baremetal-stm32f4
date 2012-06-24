@@ -1,6 +1,7 @@
 *.sw*
 *.o
 *.i
+*.s
 *.hex
 *.bin
 tags
