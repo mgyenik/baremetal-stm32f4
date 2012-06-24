@@ -17,7 +17,7 @@ extern const uint32_t _estack;
 #define PLL_Q      7            /* USB OTG FS, SDIO and RNG Clock =  PLL_VCO / PLLQ */
 
 
-__attribute__((section(".vectors"))) void(*vector_table[])(void) = {
+void(*vector_table[])(void) __attribute__((section(".vectors"))) = {
     (void(*)(void))&_estack,            /* stack top address */
     reset,               /* 1 Reset */
     chill,               /* 2 NMI */

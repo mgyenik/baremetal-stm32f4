@@ -19,12 +19,11 @@ _skernelheap = _ebss;
 _ekernelheap = 0x10007FFC;
 
 SECTIONS {
-    .vectors :
+    .vectors 0x0 :
     {
-        . = ALIGN(4);
         KEEP(*(.vectors))
         . = ALIGN(4);
-    } > FLASH
+    }
 
     .text :
     {
