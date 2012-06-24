@@ -14,11 +14,12 @@ TARGET=main
 
 CC=arm-none-eabi-gcc
 OBJCOPY=arm-none-eabi-objcopy
+LD=arm-none-eabi-ld
 
-CFLAGS  = -g -Wall -T$(LD_SCRIPT) --std=gnu99
+CFLAGS  = -g3 -c -Wall --std=gnu99
 CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork
 CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16 -nostdlib -ffreestanding
-#CFLAGS += -save-temps --verbose -Xlinker --verbose
+CFLAGS += -save-temps
 
 ###################################################
 
@@ -28,9 +29,9 @@ OBJS = $(SRCS:.c=.o)
 
 ###################################################
 
-.PHONY: lib proj
+.PHONY: proj
 
-all: lib proj
+all: proj
 
 again: clean all
 
@@ -42,10 +43,14 @@ burn:
 ctags:
 	ctags -R .
 
+
+.c.o:
+	$(CC) $(CFLAGS) $*.c
+
 proj: 	$(TARGET).elf
 
-$(TARGET).elf: $(SRCS)
-	$(CC) $(CFLAGS) $^ -o $@
+$(TARGET).elf: $(OBJS)
+	$(LD) -T$(LD_SCRIPT) $(OBJS) -o $(TARGET).elf
 	$(OBJCOPY) -O ihex $(TARGET).elf $(TARGET).hex
 	$(OBJCOPY) -O binary $(TARGET).elf $(TARGET).bin
 
