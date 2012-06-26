@@ -1,6 +1,7 @@
 #include "registers.h"
 #include "main.h"
-
+#include "spi.h"
+#include "dma.h"
 
 void init_leds(void){
     RCC_AHB1ENR |= (1 << 4);
@@ -10,9 +11,11 @@ void init_leds(void){
 int main(void){
     long delay = 2000000;
     init_leds();
+    init_dma1();
+    init_spi2();
     while(1){
         delay = 2000000;
         while(--delay){};
         MPLED_ODR ^= (1 << GREEN);
     }
-}    
+}

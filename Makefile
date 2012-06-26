@@ -1,6 +1,6 @@
 # put your *.o targets here, make should handle the rest!
 
-SRCS = start.c main.c 
+SRCS = start.c main.c spi.c dma.c 
 
 LD_SCRIPT = stm-baremetal.ld
 

@@ -7,6 +7,9 @@ typedef unsigned int uint16_t;
 extern const uint32_t _skernel;
 extern const uint32_t _ekernel;
 
+/* Board specific */
+#define MPU6000_CS          10
+
 /* Make a SVC call */
 #define _svc(x)     asm volatile ("svc  %0  \n" :: "i" (x))
 /* Memory Map */
@@ -39,6 +42,7 @@ extern const uint32_t _ekernel;
 /* GPIO Port E (GPIOE) */
 #define GPIOE_MODER         *(volatile uint32_t *) (GPIOE_BASE + 0x00)  /* Port D mode register */
 #define MPLED_ODR           *(volatile uint32_t *) (GPIOE_BASE + 0x14)  /* LED Output Data Register */
+#define GPIOE_ODR           MPLED_ODR
 #define RED                 5
 #define YELLOW              6
 #define GREEN               7
@@ -52,18 +56,158 @@ extern const uint32_t _ekernel;
 #define USART2_GTPR         *(volatile uint32_t *) (USART2_BASE + 0x18)
 
 /* SPI 2 */
-#define SPI2_APB1EN 0x00004000
-#define SPI2        0x40003800
-#define SPI2_CR1     *(volatile uint32_t *) (SPI2 + 0x00)
-#define SPI2_CR2     *(volatile uint32_t *) (SPI2 + 0x04)
-#define SPI2_SR      *(volatile uint32_t *) (SPI2 + 0x08)
-#define SPI2_DR      *(volatile uint32_t *) (SPI2 + 0x0c)
-#define SPI2_CRCPR   *(volatile uint32_t *) (SPI2 + 0x10)
-#define SPI2_RXCRCR  *(volatile uint32_t *) (SPI2 + 0x14)
-#define SPI2_TXCRCR  *(volatile uint32_t *) (SPI2 + 0x18)
-#define SPI2_I2SCFGR *(volatile uint32_t *) (SPI2 + 0x1c)
-#define SPI2_I2SPR   *(volatile uint32_t *) (SPI2 + 0x20)
+#define SPI2_APB1EN         0x00004000
+#define SPI2                0x40003800
+#define SPI2_CR1            *(volatile uint32_t *) (SPI2 + 0x00)
+#define SPI2_CR2            *(volatile uint32_t *) (SPI2 + 0x04)
+#define SPI2_SR             *(volatile uint32_t *) (SPI2 + 0x08)
+#define SPI2_DR             *(volatile uint32_t *) (SPI2 + 0x0c)
+#define SPI2_CRCPR          *(volatile uint32_t *) (SPI2 + 0x10)
+#define SPI2_RXCRCR         *(volatile uint32_t *) (SPI2 + 0x14)
+#define SPI2_TXCRCR         *(volatile uint32_t *) (SPI2 + 0x18)
+#define SPI2_I2SCFGR        *(volatile uint32_t *) (SPI2 + 0x1c)
+#define SPI2_I2SPR          *(volatile uint32_t *) (SPI2 + 0x20)
+#define BIDIMODE            15
+#define BIDIOE              14
+#define CRCEN               13
+#define CRCNEXT             12
+#define DFF                 11
+#define RXONLY              10
+#define SSM                 9
+#define SSI                 8
+#define LSBFIRST            7
+#define SPE                 6
+#define BR                  3
+#define MSTR                2
+#define CPOL                1
+#define CPHA                0
+#define TXEIE               7
+#define RXNEIE              6
+#define ERRIE               5
+#define FRF                 4
+#define SSOE                2
+#define TXDMAEN             1
+#define RXDMAEN             0
+#define TIFRFE              8
+#define BSY                 7
+#define OVR                 6
+#define MODF                5
+#define CRCERR              4
+#define UDR                 3
+#define CHSIDE              2
+#define TXE                 1
+#define RXNE                0
 
+/* DMA */
+#define DMA1                0x40026000
+#define DMA1_LISR           *(volatile uint32_t *)(DMA1 + 0x0000)
+#define TCIF3               27
+#define HTIF3               26
+#define TEIF3               25
+#define DMEIF3              24
+#define FEIF3               22
+#define TCIF2               21
+#define HTIF2               20
+#define TEIF2               19
+#define DMEIF2              18
+#define FEIF2               16
+#define TCIF1               11
+#define HTIF1               10
+#define TEIF1               9
+#define DMEIF1              8
+#define FEIF1               6
+#define TCIF0               5
+#define HTIF0               4
+#define TEIF0               3
+#define DMEIF0              2
+#define FEIF0               0
+#define DMA1_HISR           *(volatile uint32_t *)(DMA1 + 0x0004) 
+#define TCIF7               27
+#define HTIF7               26
+#define TEIF7               25
+#define DMEIF7              24
+#define FEIF7               22
+#define TCIF6               21
+#define HTIF6               20
+#define TEIF6               19
+#define DMEIF6              18
+#define FEIF6               16
+#define TCIF5               11
+#define HTIF5               10
+#define TEIF5               9
+#define DMEIF5              8
+#define FEIF5               6
+#define TCIF4               5
+#define HTIF4               4
+#define TEIF4               3
+#define DMEIF4              2
+#define FEIF4               0
+#define DMA1_LIFCR          *(volatile uint32_t *)(DMA1 + 0x0008) 
+#define CTCIF3              27
+#define CHTIF3              26
+#define TEIF3               25
+#define CDMEIF3             24
+#define CFEIF3              22
+#define CTCIF2              21
+#define CHTIF2              20
+#define CTEIF2              19
+#define CDMEIF2             18
+#define CFEIF2              16
+#define CTCIF1              11
+#define CHTIF1              10
+#define CTEIF1              9
+#define CDMEIF1             8
+#define CFEIF1              6
+#define CTCIF0              5
+#define CHTIF0              4
+#define CTEIF0              3
+#define CDMEIF0             2
+#define CFEIF0              0
+#define DMA1_HIFCR           *(volatile uint32_t *)(DMA1 + 0x000C) 
+#define CTCIF7              27
+#define CHTIF7              26
+#define CTEIF7              25
+#define CDMEIF7             24
+#define CFEIF7              22
+#define CTCIF6              21
+#define CHTIF6              20
+#define CTEIF6              19
+#define CDMEIF6             18
+#define CFEIF6              16
+#define CTCIF5              11
+#define CHTIF5              10
+#define CTEIF5              9
+#define CDMEIF5             8
+#define CFEIF5              6
+#define CTCIF4              5
+#define CHTIF4              4
+#define CTEIF4              3
+#define CDMEIF4             2
+#define CFEIF4              0
+#define DMA1_S0CR            *(volatile uint32_t *)(DMA1 + 0x0010) 
+#define CHSEL               25
+#define MBURST              23
+#define PBURST              21
+#define CT                  19
+#define DBM                 18
+#define PL                  16
+#define PINCOS              15
+#define MSIZE               13
+#define PSIZE               11
+#define MINC                10
+#define PINC                9
+#define CIRC                8
+#define DIR                 6
+#define PFCTRL              5
+#define TCIE                4
+#define HTIE                3
+#define TEIE                2
+#define DMEIE               1
+#define DMA_EN              0
+#define DMA1_S0NDTR         *(volatile uint32_t *)(DMA1 + 0x0014)
+#define DMA1_S0PAR          *(volatile uint32_t *)(DMA1 + 0x0018)
+#define DMA1_S0M0AR         *(volatile uint32_t *)(DMA1 + 0x001C)
+#define DMA1_S0M1AR M1A     *(volatile uint32_t *)(DMA1 + 0x0020)
 
 /* Power Control (PWR) */
 #define PWR_CR              *(volatile uint32_t *) (PWR_BASE + 0x00)    /* Power Control Register */
