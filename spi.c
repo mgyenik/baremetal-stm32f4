@@ -10,6 +10,5 @@ void init_spi2(void){
     GPIOE_ODR |= (1 << MPU6000_CS);
     SPI2_CR1 |= (1 << SSM) | (0x2 << 3) | (1 << MSTR) | (1 << CPOL);
     SPI2_CR2 |= (1 << TXDMAEN) | (1 << RXDMAEN);
-   //DO SHIT
     SPI2_CR1 |= (1 << SPE); //Enable it after config, AND PRAY.
 }

@@ -23,6 +23,7 @@ extern const uint32_t _ekernel;
 #define APB1PERIPH_BASE     (PERIPH_BASE)
 #define AHB1PERIPH_BASE     (PERIPH_BASE + 0x00020000)
 
+#define GPIOB_BASE          (AHB1PERIPH_BASE + 0x0400)                  /* GPIO Port D base address */
 #define GPIOD_BASE          (AHB1PERIPH_BASE + 0x0C00)                  /* GPIO Port D base address */
 #define GPIOE_BASE          (AHB1PERIPH_BASE + 0x1000)                  /* GPIO Port D base address */
 #define PWR_BASE            (APB1PERIPH_BASE + 0x7000)                  /* Power Control base address */
@@ -40,7 +41,9 @@ extern const uint32_t _ekernel;
 #define GPIOD_MODER         *(volatile uint32_t *) (GPIOD_BASE + 0x00)  /* Port D mode register */
 #define LED_ODR             *(volatile uint32_t *) (GPIOD_BASE + 0x14)  /* LED Output Data Register */
 /* GPIO Port E (GPIOE) */
-#define GPIOE_MODER         *(volatile uint32_t *) (GPIOE_BASE + 0x00)  /* Port D mode register */
+#define GPIOB_MODER         *(volatile uint32_t *) (GPIOB_BASE + 0x00)  /* Port B mode register */
+#define GPIOB_ODR           *(volatile uint32_t *) (GPIOB_BASE + 0x14)  /* Output Data Register */
+#define GPIOE_MODER         *(volatile uint32_t *) (GPIOE_BASE + 0x00)  /* Port E mode register */
 #define MPLED_ODR           *(volatile uint32_t *) (GPIOE_BASE + 0x14)  /* LED Output Data Register */
 #define GPIOE_ODR           MPLED_ODR
 #define RED                 5
@@ -101,27 +104,20 @@ extern const uint32_t _ekernel;
 /* DMA */
 #define DMA1                0x40026000
 #define DMA1_LISR           *(volatile uint32_t *)(DMA1 + 0x0000)
-#define TCIF3               27
-#define HTIF3               26
-#define TEIF3               25
-#define DMEIF3              24
-#define FEIF3               22
-#define TCIF2               21
-#define HTIF2               20
-#define TEIF2               19
-#define DMEIF2              18
-#define FEIF2               16
-#define TCIF1               11
-#define HTIF1               10
-#define TEIF1               9
-#define DMEIF1              8
-#define FEIF1               6
-#define TCIF0               5
-#define HTIF0               4
-#define TEIF0               3
-#define DMEIF0              2
-#define FEIF0               0
 #define DMA1_HISR           *(volatile uint32_t *)(DMA1 + 0x0004) 
+#define DMA1_LIFCR          *(volatile uint32_t *)(DMA1 + 0x0008) 
+#define DMA1_HIFCR          *(volatile uint32_t *)(DMA1 + 0x000C) 
+#define DMA1_S0CR           *(volatile uint32_t *)(DMA1 + 0x0010) 
+#define DMA1_S0NDTR         *(volatile uint32_t *)(DMA1 + 0x0014)
+#define DMA1_S0PAR          *(volatile uint32_t *)(DMA1 + 0x0018)
+#define DMA1_S0M0AR         *(volatile uint32_t *)(DMA1 + 0x001C)
+#define DMA1_S0M1AR         *(volatile uint32_t *)(DMA1 + 0x0020)
+#define DMA1_S4CR           *(volatile uint32_t *)(DMA1 + 0x0070) 
+#define DMA1_S4NDTR         *(volatile uint32_t *)(DMA1 + 0x0074)
+#define DMA1_S4PAR          *(volatile uint32_t *)(DMA1 + 0x0078)
+#define DMA1_S4M0AR         *(volatile uint32_t *)(DMA1 + 0x007C)
+#define DMA1_S4M1AR         *(volatile uint32_t *)(DMA1 + 0x0080)
+#define DMA1_S4FCR          *(volatile uint32_t *)(DMA1 + 0x0084)
 #define TCIF7               27
 #define HTIF7               26
 #define TEIF7               25
@@ -142,7 +138,6 @@ extern const uint32_t _ekernel;
 #define TEIF4               3
 #define DMEIF4              2
 #define FEIF4               0
-#define DMA1_LIFCR          *(volatile uint32_t *)(DMA1 + 0x0008) 
 #define CTCIF3              27
 #define CHTIF3              26
 #define TEIF3               25
@@ -163,7 +158,6 @@ extern const uint32_t _ekernel;
 #define CTEIF0              3
 #define CDMEIF0             2
 #define CFEIF0              0
-#define DMA1_HIFCR           *(volatile uint32_t *)(DMA1 + 0x000C) 
 #define CTCIF7              27
 #define CHTIF7              26
 #define CTEIF7              25
@@ -184,7 +178,6 @@ extern const uint32_t _ekernel;
 #define CTEIF4              3
 #define CDMEIF4             2
 #define CFEIF4              0
-#define DMA1_S0CR            *(volatile uint32_t *)(DMA1 + 0x0010) 
 #define CHSEL               25
 #define MBURST              23
 #define PBURST              21
@@ -197,18 +190,37 @@ extern const uint32_t _ekernel;
 #define MINC                10
 #define PINC                9
 #define CIRC                8
-#define DIR                 6
+#define DMA_DIR             6
 #define PFCTRL              5
 #define TCIE                4
 #define HTIE                3
 #define TEIE                2
 #define DMEIE               1
 #define DMA_EN              0
-#define DMA1_S0NDTR         *(volatile uint32_t *)(DMA1 + 0x0014)
-#define DMA1_S0PAR          *(volatile uint32_t *)(DMA1 + 0x0018)
-#define DMA1_S0M0AR         *(volatile uint32_t *)(DMA1 + 0x001C)
-#define DMA1_S0M1AR M1A     *(volatile uint32_t *)(DMA1 + 0x0020)
-
+#define TCIF3               27
+#define HTIF3               26
+#define TEIF3               25
+#define DMEIF3              24
+#define FEIF3               22
+#define TCIF2               21
+#define HTIF2               20
+#define TEIF2               19
+#define DMEIF2              18
+#define FEIF2               16
+#define TCIF1               11
+#define HTIF1               10
+#define TEIF1               9
+#define DMEIF1              8
+#define FEIF1               6
+#define TCIF0               5
+#define HTIF0               4
+#define TEIF0               3
+#define DMEIF0              2
+#define FEIF0               0
+#define FEIE                7
+#define FS                  3
+#define DMDIS               2
+#define FTH                 0
 /* Power Control (PWR) */
 #define PWR_CR              *(volatile uint32_t *) (PWR_BASE + 0x00)    /* Power Control Register */
 #define PWR_CSR             *(volatile uint32_t *) (PWR_BASE + 0x04)    /* Power Control/Status Register */

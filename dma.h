@@ -1,2 +1,2 @@
 
-void init_dma1(void);
+void init_dma1_s4(unsigned char* buf);
