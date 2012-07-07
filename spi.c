@@ -6,6 +6,9 @@
 
 void init_spi2(void){
     RCC_APB1ENR |= SPI2_APB1EN;
+    RCC_AHB1ENR |= (1 << PORTB_AHBEN);
+    GPIOB_MODER |= (2 << 30) | (2 << 28) | (2 << 26);
+    GPIOB_AFRH  |= (5 << 28) | (5 << 24) | (5 << 20);
     GPIOE_MODER |= (1 << (MPU6000_CS*2));
     GPIOE_ODR |= (1 << MPU6000_CS);
     SPI2_CR1 |= (1 << SSM) | (0x2 << 3) | (1 << MSTR) | (1 << CPOL);

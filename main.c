@@ -17,6 +17,15 @@ int main(void){
     while(1){
         delay = 2000000;
         while(--delay){};
-        MPLED_ODR ^= (1 << GREEN);
+        MPLED_ODR |= (1 << GREEN);
+        delay = 2000000;
+        while(--delay){};
+        MPLED_ODR |= (1 << YELLOW);
+        delay = 2000000;
+        while(--delay){};
+        MPLED_ODR |= (1 << RED);
+        delay = 2000000;
+        while(--delay){};
+        MPLED_ODR = 0;
     }
 }

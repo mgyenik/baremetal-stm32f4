@@ -43,6 +43,8 @@ extern const uint32_t _ekernel;
 /* GPIO Port E (GPIOE) */
 #define GPIOB_MODER         *(volatile uint32_t *) (GPIOB_BASE + 0x00)  /* Port B mode register */
 #define GPIOB_ODR           *(volatile uint32_t *) (GPIOB_BASE + 0x14)  /* Output Data Register */
+#define PORTB_AHBEN         1
+#define GPIOB_AFRH          *(volatile uint32_t *) (GPIOB_BASE + 0x24)
 #define GPIOE_MODER         *(volatile uint32_t *) (GPIOE_BASE + 0x00)  /* Port E mode register */
 #define MPLED_ODR           *(volatile uint32_t *) (GPIOE_BASE + 0x14)  /* LED Output Data Register */
 #define GPIOE_ODR           MPLED_ODR

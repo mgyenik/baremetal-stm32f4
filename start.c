@@ -1,12 +1,12 @@
 #include "registers.h"
 #include "start.h"
 
-extern const uint32_t _etext;
-extern const uint32_t _sdata;
-extern const uint32_t _edata;
-extern const uint32_t _sbss;
-extern const uint32_t _ebss;
-extern const uint32_t _estack;
+extern uint32_t _etext;
+extern uint32_t _sdata;
+extern uint32_t _edata;
+extern uint32_t _sbss;
+extern uint32_t _ebss;
+extern uint32_t _estack;
 
 
 #define HSE_STARTUP_TIMEOUT     (uint16_t) (0x0500)         /* Time out for HSE start up */
